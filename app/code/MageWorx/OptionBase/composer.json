@@ -1,0 +1,27 @@
+{
+    "name": "mageworx/module-optionbase",
+    "description": "N/A",
+    "require": {
+        "magento/framework"      : ">=101.0.0 <104",
+        "magento/module-catalog" : ">=102.0.0 <105",
+        "magento/module-customer": ">=101.0.0 <104",
+        "magento/module-quote"   : ">=101.0.0 <102",
+        "magento/module-store"   : ">=100.2.0 <102",
+        "magento/module-ui"      : ">=101.0.0 <102",
+        "magento/module-tax"     : ">=100.2.0 <101"
+    },
+    "type": "magento2-module",
+    "version": "2.16.3",
+    "license": [
+        "OSL-3.0",
+        "AFL-3.0"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "MageWorx\\OptionBase\\": ""
+        }
+    }
+}

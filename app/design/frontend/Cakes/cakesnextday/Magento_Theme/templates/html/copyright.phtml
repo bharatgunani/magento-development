@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<script>
+    require(['jquery'], function ($) 
+    {
+       (function($) {
+    	  var allPanels = $('.contentbox1 > dd').hide();
+    	  var allHeadding = $('.contentbox1 > dt'); 
+		  $('.contentbox1 > dt > a').click(function() {
+		    allPanels.slideUp();
+		    allHeadding.removeClass('active');
+		    $(this).parent().next().slideDown();
+		    $(this).parent().addClass('active');
+		    return false;
+		  });
+
+		})(jQuery);
+    });
+</script>
+<small class="copyright">
+	<div class="container">
+    	<span><?= $block->escapeHtml($block->getCopyright()) ?></span>
+	</div>
+</small>

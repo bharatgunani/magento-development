@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="1column" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+        <move element="product.info.detail" destination="product.info.main"  after="-" />
+        <move element="product.info.media" destination="content"  before="-" />
+        <move element="product.info.overview" destination="product.info.main"  after="page.main.title" />
+
+        <referenceBlock name="product.info.addto" remove="true"/>
+        
+        <referenceBlock name="product.info.options.wrapper.bottom">
+            <block class="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist" name="view.addto.wishlist"
+                       template="Magento_Wishlist::catalog/product/view/addto/wishlist.phtml" after="product.info.addtocart.additional" />
+        </referenceBlock>
+        <referenceContainer name="product.info.form.content">
+            <block class="Magento\Wishlist\Block\Catalog\Product\View\AddTo\Wishlist" name="addto.wishlist"
+                       template="Magento_Wishlist::catalog/product/view/addto/wishlist.phtml" after="product.info.addtocart" />
+        </referenceContainer>
+        <referenceBlock name="product.info.description">
+            <arguments>
+                <argument name="title" xsi:type="string" translate="true" >About the Caken</argument>
+                <argument name="sort_order" xsi:type="string">10</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="reviews.tab">
+            <arguments>
+                <argument name="sort_order" xsi:type="string">14</argument>
+            </arguments>
+        </referenceBlock>
+        <referenceBlock name="product.info.main">
+        	<block class="Magento\Framework\View\Element\Template" name="product.share1" template="Magento_Catalog::product/view/share.phtml" after="product.info" />
+        </referenceBlock>
+        <referenceBlock name="product.info.details">
+        	<block class="Magento\Catalog\Block\Product\View" name="ingredients" template="Magento_Catalog::product/view/ingredients.phtml" group="detailed_info">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getIngredients</argument>
+                    <argument name="at_code" xsi:type="string">ingredients</argument>
+                    <argument name="css_class" xsi:type="string">ingredients</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" xsi:type="string" translate="true" >Ingredients</argument>
+                    <argument name="sort_order" xsi:type="string">11</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="cake.size" template="Magento_Catalog::product/view/cake_size.phtml" group="detailed_info">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getCakeSize</argument>
+                    <argument name="at_code" xsi:type="string">cake_size</argument>
+                    <argument name="css_class" xsi:type="string">cake_size</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" xsi:type="string" translate="true" >Cake Size</argument>
+                    <argument name="sort_order" xsi:type="string">12</argument>
+                </arguments>
+            </block>
+            <block class="Magento\Catalog\Block\Product\View" name="delivery" template="Magento_Catalog::product/view/delivery.phtml" group="detailed_info">
+                <arguments>
+                    <argument name="at_call" xsi:type="string">getDelivery</argument>
+                    <argument name="at_code" xsi:type="string">delivery</argument>
+                    <argument name="css_class" xsi:type="string">delivery</argument>
+                    <argument name="at_label" xsi:type="string">none</argument>
+                    <argument name="title" xsi:type="string" translate="true" >Delivery Time</argument>
+                    <argument name="sort_order" xsi:type="string">13</argument>
+                </arguments>
+            </block>
+        </referenceBlock>
+    </body>
+</page>

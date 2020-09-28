@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" layout="1column" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <body>
+    	<attribute name="class" value="category-landing" />
+        <referenceBlock name="catalog.compare.sidebar" remove="true"/> 
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+        <move element="category.description" destination="category.view.container" after="category.image" />
+        <move element="page.main.title" destination="columns.top" before="category.view.container" />
+        <move element="category.image" destination="category.view.container" before="-" />
+         <move element="category.description" destination="category.view.container" after="category.image" />
+        <move element="catalog.leftnav" destination="sidebar.main" after="sub.categorys" />
+        <referenceBlock name="apptrian.subcategories.category.page.after" remove="false" />
+    </body>
+</page>

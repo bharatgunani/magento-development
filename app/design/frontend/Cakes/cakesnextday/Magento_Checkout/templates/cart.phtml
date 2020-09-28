@@ -1,0 +1,20 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+ 
+<?php
+/**
+ * Shopping cart template
+ *
+ * @var $block \Magento\Checkout\Block\Cart
+ */
+
+
+if ($block->getItemsCount()): ?>
+    <?php  echo $block->getChildHtml('with-items'); ?>
+<?php else: ?>
+    <?php echo $block->getChildHtml('no-items'); ?>
+<?php endif; ?> 

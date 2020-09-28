@@ -1,0 +1,79 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<page layout="3columns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <update handle="default_head_blocks"/>
+    <body>
+        <container name="header.top" htmlClass="top__header" htmlTag="div">
+            <container name="header.inner" htmlClass="container" htmlTag="div">
+                <block class="Magento\Framework\View\Element\Template" name="header.tblock" template="Magento_Theme::html/header-top.phtml">
+                    <block class="Magento\Cms\Block\Block" name="header-top">
+                        <arguments>
+                            <argument name="block_id" xsi:type="string">header-top</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Store\Block\Switcher" name="store_language" as="store_language" template="Magento_Store::switch/languages.phtml">
+                        <arguments>
+                            <argument name="view_model" xsi:type="object">Magento\Store\ViewModel\SwitcherUrlProvider</argument>
+                        </arguments>
+                    </block>
+                    <block class="Magento\Directory\Block\Currency" name="store_currency" template="Magento_Directory::currency.phtml" />
+                </block>
+            </container>
+        </container>  
+        <move element="header.top" destination="header.container"  after="header.panel.wrapper" />
+        <container name="header-wrapper" label="Page Header" as="header-wrapper" htmlTag="div" htmlClass="header-middle">
+            <block class="Magento\Framework\View\Element\Template" name="header.main" before="-" template="Magento_Theme::html/header-main.phtml">
+                <block class="Magento\Theme\Block\Html\Header\Logo" name="logo">
+                    <arguments>
+                        <argument name="logo_img_width" xsi:type="number">189</argument>
+                        <argument name="logo_img_height" xsi:type="number">64</argument>
+                    </arguments>
+                </block>
+                <block class="Magento\Framework\View\Element\Template" name="top.search" as="topSearch" template="Magento_Search::form.mini.phtml" /> 
+            </block>
+        </container>
+        <move element="header-wrapper" destination="header.container"  after="header.top" />
+        <move element="minicart" destination="header.main" after="store_language" />
+        <referenceBlock name="catalog.compare.link" remove="true"/>
+
+        <referenceContainer name="page.bottom.container">
+            <referenceContainer name="page.bottom">
+                    <block class="Magento\Cms\Block\Block" name="footer-newsletter">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-newsletter</argument>
+                    </arguments>
+                    </block>
+            </referenceContainer>
+        </referenceContainer>
+        <referenceContainer name="footer-container">
+            <container name="footer.top"  label="Page Footer" htmlTag="div" htmlClass="footer-top">
+                <block class="Magento\Cms\Block\Block" name="footer-top-info">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-top-info</argument>
+                    </arguments>
+                </block>
+            </container>
+            <container name="footer.middle"  htmlTag="div" htmlClass="footer-middle">
+                <block class="Magento\Cms\Block\Block" name="footer-middle-info">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-middle-info</argument>
+                    </arguments>
+                </block>
+            </container>
+            <!-- <container name="footer.bottom"  htmlTag="div" htmlClass="footer-bottm">
+                <block class="Magento\Cms\Block\Block" name="footer-bottom-info">
+                    <arguments>
+                        <argument name="block_id" xsi:type="string">footer-bottom-info</argument>
+                    </arguments>
+                </block>
+            </container> -->
+        </referenceContainer>
+        <referenceBlock name="footer" remove="true"/>
+        <referenceBlock name="wishlist_sidebar" remove="true" />
+    </body>
+</page>
