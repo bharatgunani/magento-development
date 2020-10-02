@@ -7,22 +7,23 @@
 <script>
     require(['jquery'], function ($) 
     {
-       (function($) {
-    	  var allPanels = $('.contentbox1 > dd').hide();
-    	  var allHeadding = $('.contentbox1 > dt'); 
-		  $('.contentbox1 > dt > a').click(function() {
-		    allPanels.slideUp();
-		    allHeadding.removeClass('active');
-		    $(this).parent().next().slideDown();
-		    $(this).parent().addClass('active');
-		    return false;
-		  });
-
-		})(jQuery);
+       	$(function () 
+		{
+			$('.contentbox1 > dd').hide();
+		    $('#faq_pg .contentbox1 dt').on('click', function (e) {
+		        e.preventDefault();
+		        $(this).parent('dl').children('dd:visible').slideUp('slow');
+		        $(this).nextUntil('dt').filter(':not(:visible)').slideDown('slow');
+		    });
+		});
+       (jQuery);
     });
 </script>
 <small class="copyright">
 	<div class="container">
-    	<span><?= $block->escapeHtml($block->getCopyright()) ?></span>
+    	<span>
+    		<?= $block->escapeHtml($block->getCopyright()) ?>
+    		&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Designed By:'); ?> &nbsp;&nbsp;<a href="https://www.webindiainc.com/" target="_blank">Webindiainc</a>
+    	</span>
 	</div>
 </small>

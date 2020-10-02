@@ -59,7 +59,8 @@
 	.form.create.account .actions-toolbar{ padding-left: 0px !important; }
 }
 @media (max-width: 767px)
-{
+{	li.customer-welcome .customer-name{display: none;}
+	.customer-name, .customer-welcome + .authorization-link{display: block;}
 	.block-search .control{ margin: 0px; border: none; padding: 0px; }
 	.search-box .block-search input{ position: static; margin: 0px;  }
 	#banner-slider-carousel .owl-item img.desktop{ display: none; }

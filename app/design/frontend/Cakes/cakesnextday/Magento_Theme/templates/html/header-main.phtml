@@ -19,7 +19,7 @@
         <div class="col-12 col-xs-12 col-sm-12 col-md-12 col-lg-6 search-box">
           <?php echo $block->getChildHtml('topSearch');?>
         </div>
-    <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 header-right">
+    <div class="col-12 col-xs-12 col-sm-12 col-md-3 col-lg-3 header-right">      
         <ul class="customer-links">
               <li class="nav-item">
                 <span data-bind="scope: 'wishlist'" class="customer-wishlist">
@@ -29,7 +29,8 @@
                 </span>
               </li> 
               <li class="nav-item login">
-                <a href="<?php echo $this->getUrl('customer/account/login') ?>"></a>
+                <a href="<?php echo $this->getUrl('customer/account/login') ?>"></a> 
+                <?php echo $block->getChildHtml('top.links');?>
               </li> 
           </ul>
           <?php echo $block->getChildHtml('minicart');?>

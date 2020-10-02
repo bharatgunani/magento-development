@@ -39,6 +39,7 @@
         </container>
         <move element="header-wrapper" destination="header.container"  after="header.top" />
         <move element="minicart" destination="header.main" after="store_language" />
+        <move element="top.links" destination="header.main"  />
         <referenceBlock name="catalog.compare.link" remove="true"/>
 
         <referenceContainer name="page.bottom.container">
