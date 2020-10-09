@@ -1,0 +1,30 @@
+<script>
+    window.checkoutConfig = <?= /* @noEscape */$block->getSerializedCheckoutConfig() ?>;
+    <?php $viewModel = $block->getData('sharedCartVieModel');?>
+    <?php $sharedCartTotals = $viewModel->getCurrentSharedCartTotals($viewModel->getCurrentSharedCart())?>
+    <?php foreach ($sharedCartTotals as $sharedCartTotalLabel => $sharedCartTotalValue) :?>
+        <?php if (is_numeric($sharedCartTotalValue)) :?>
+            window.checkoutConfig.totalsData.<?=/* @noEscape */$sharedCartTotalLabel?> = <?=/* @noEscape */$sharedCartTotalValue?>;
+        <?php endif;?>
+    <?php endforeach;?>
+    window.customerData = window.checkoutConfig.customerData;
+    window.isCustomerLoggedIn = window.checkoutConfig.isCustomerLoggedIn;
+
+    require([
+        'mage/url',
+        'Magento_Ui/js/block-loader',
+        'jquery'
+    ], function(url, blockLoader, $) {
+        $.each( window.checkoutConfig.totalsData.total_segments, function( key, value ) {
+            val1 = window.checkoutConfig.totalsData[value.code];
+            if(typeof val1 === "undefined") {
+                val1 = window.checkoutConfig.totalsData[value.code+'_amount'];
+            }
+           // if(typeof val1 === "undefined") {
+                window.checkoutConfig.totalsData.total_segments[key].value = val1;
+           // }
+        });
+        blockLoader("<?= /* @noEscape */ $block->getViewFileUrl('images/loader-1.gif') ?>");
+        return url.setBaseUrl('<?= /* @noEscape */ $block->getBaseUrl() ?>');
+    })
+</script>

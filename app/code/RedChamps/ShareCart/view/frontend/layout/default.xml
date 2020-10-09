@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <head>
+        <css src="RedChamps_ShareCart::css/styles.css"/>
+    </head>
+    <body>
+        <referenceContainer name="before.body.end">
+            <container name="cart.share" label="Share Cart Container" htmlTag="div" htmlClass="share-cart-container"/>
+        </referenceContainer>
+        <referenceContainer name="cart.share">
+            <block class="RedChamps\ShareCart\Block\ShareCart" template="RedChamps_ShareCart::share_cart.phtml" name="share.cart">
+                <block class="Magento\Framework\View\Element\Template" name="share.cart.email.form" template="RedChamps_ShareCart::share_cart/forms/email.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="share.cart.sms.form" template="RedChamps_ShareCart::share_cart/forms/sms.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="share.cart.whatsapp.form" template="RedChamps_ShareCart::share_cart/forms/whatsapp.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="share.cart.url.form" template="RedChamps_ShareCart::share_cart/forms/url.phtml"/>
+                <block class="Magento\Framework\View\Element\Template" name="share.cart.js" template="RedChamps_ShareCart::share_cart/js.phtml"/>
+            </block>
+        </referenceContainer>
+    </body>
+</page>

@@ -1,0 +1,26 @@
+<button type="button" onclick="window.open('<?=/* @noEscape */$block->getRestoreUrl()?>')" class="action primary restore-shared-cart">
+    <span>
+        <span>
+            <?=/* @noEscape */ __("Purchase This Cart")?>
+        </span>
+    </span>
+</button>
+<p class="restore-shared-cart-notice">This action will clear your existing cart.</p>
+<script>
+    require([
+        'jquery',
+        'ko',
+        'Magento_Checkout/js/model/quote',
+        'Magento_Checkout/js/model/totals'
+    ], function ($, ko, quote, totals) {
+        totals.isLoading(true);
+        ko.cleanNode($("#cart-totals")[0]);
+        $("#cart-totals").trigger('contentUpdated').applyBindings();
+        quote.setTotals(window.checkoutConfig.totalsData);
+        quote['grand_total'] = window.checkoutConfig.totalsData.grand_total;
+        totals.isLoading(false);
+    });
+</script>
+<style>
+    .cart-totals .grand.totals {display: none}
+</style>

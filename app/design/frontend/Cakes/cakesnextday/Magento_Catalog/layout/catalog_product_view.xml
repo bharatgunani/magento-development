@@ -10,6 +10,7 @@
         <move element="product.info.detail" destination="product.info.main"  after="-" />
         <move element="product.info.media" destination="content"  before="-" />
         <move element="product.info.overview" destination="product.info.main"  after="page.main.title" />
+        <move element="page.main.title" destination="product.info.main"  before="-" />
 
         <referenceBlock name="product.info.addto" remove="true"/>
         
@@ -23,7 +24,7 @@
         </referenceContainer>
         <referenceBlock name="product.info.description">
             <arguments>
-                <argument name="title" xsi:type="string" translate="true" >About the Caken</argument>
+                <argument name="title" xsi:type="string" translate="true" >About the Cake</argument>
                 <argument name="sort_order" xsi:type="string">10</argument>
             </arguments>
         </referenceBlock>

@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">
+    <acl>
+        <resources>
+            <resource id="Magento_Backend::admin">
+                <resource id="RedChamps_Menu::redchamps" title="RedChamps" translate="title" sortOrder="20">
+                        <resource id="RedChamps_ShareCart::share_cart" title="Share Shopping Cart" translate="title" sortOrder="10">
+                            <resource id="RedChamps_ShareCart::shared_carts" title="Shared Shopping Carts" translate="title" sortOrder="10" />
+                            <resource id="RedChamps_ShareCart::conversion_report" title="Conversions Report" translate="title" sortOrder="20" />
+                            <resource id="RedChamps_ShareCart::settings" title="Settings" translate="title" sortOrder="30" />
+                        </resource>
+                </resource>
+                <resource id="Magento_Backend::stores">
+                    <resource id="Magento_Backend::stores_settings">
+                        <resource id="Magento_Config::config">
+                            <resource id="RedChamps_ShareCart::share_cart_config" title="Share Shopping Cart Settings" translate="title" />
+                        </resource>
+                    </resource>
+                </resource>
+            </resource>
+        </resources>
+    </acl>
+</config>

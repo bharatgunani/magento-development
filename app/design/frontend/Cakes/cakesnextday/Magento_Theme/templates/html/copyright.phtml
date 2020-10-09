@@ -15,6 +15,17 @@
 		        $(this).parent('dl').children('dd:visible').slideUp('slow');
 		        $(this).nextUntil('dt').filter(':not(:visible)').slideDown('slow');
 		    });
+
+		    $(window).scroll(function()
+			{
+				if ($(window).scrollTop() >= 100) {
+					$('header').addClass('fixed-header');
+				}
+				else {
+					$('header').removeClass('fixed-header');
+				}
+	        });
+
 		});
        (jQuery);
     });

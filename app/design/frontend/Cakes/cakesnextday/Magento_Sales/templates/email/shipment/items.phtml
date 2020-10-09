@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+?>
+<?php $_shipment = $block->getShipment() ?>
+<?php $_order    = $block->getOrder() ?>
+<?php if ($_shipment && $_order) : ?>
+    <table class="email-items">
+        <thead>
+            <tr>                
+                <th class="item-qty"style="padding:10px;">
+                    <?= $block->escapeHtml(__('Product name')) ?>
+                </th>
+                <th class="item-price"style="padding:10px;">
+                    <?= $block->escapeHtml(__('QTY')) ?>
+                </th>                 
+            </tr>
+        </thead>
+        <?php foreach ($_shipment->getAllItems() as $_item) : ?>
+            <?php if (!$_item->getOrderItem()->getParentItem()) : ?>
+                <tbody>
+                    <?= $block->getItemHtml($_item) ?>
+                </tbody>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </table>
+<?php endif; ?>

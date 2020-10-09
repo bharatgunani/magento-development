@@ -14,7 +14,7 @@
         <font src="fonts/opensans/bold/opensans-700.woff2"/>
         <font src="fonts/Luma-Icons.woff2"/>
         <link rel="stylesheet" type="text/css" src="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700" src_type="url" /> 
-        <css src="css/font-awesome.min.css" order="99" />
+        <css src="css/font-awesome.min.css" order="101" />
         <css src="css/bootstrap.css" order="100" />
         <css src="css/custom.css" order="101" />
         <css src="css/responsive.css" order="102" />

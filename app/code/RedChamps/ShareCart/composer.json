@@ -1,0 +1,23 @@
+{
+    "name": "redchamps/module-share-cart",
+    "description": "This extension will allow to share shopping cart via an email, link, WhatsApp or SMS.",
+    "require": {
+        "redchamps/module-core": "*",
+        "magento/module-sales": "*",
+        "twilio/sdk": "*"
+    },
+    "license": [
+        "RedChamps EULA"
+    ],
+    "type": "magento2-module",
+    "version": "1.2.2.1",
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "RedChamps\\ShareCart\\": "",
+            "Twilio\\": "twilio/sdk/Twilio"
+        }
+    }
+}

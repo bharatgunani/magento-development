@@ -1,0 +1,76 @@
+<?php $_item = $block->getItem() ?>
+<?php $_quote = $_item->getQuote() ?>
+
+<?php if ($block->getItemOptions() || $_item->getDescription() || $this->helper('Magento\GiftMessage\Helper\Message')->isMessagesAllowed('order_item', $_item) && $_item->getGiftMessageId()) : ?>
+    <?php $_showlastRow = true ?>
+<?php else : ?>
+    <?php $_showlastRow = false ?>
+<?php endif; ?>
+
+<?php $_prevOptionId = '' ?>
+
+<?php
+$_imageHelper = $this->helper('Magento\Catalog\Helper\Image');
+$productImage = $_imageHelper->init($_item->getProduct(), 'category_page_list', ['height' => 100 , 'width'=> 100])->getUrl();
+?>
+
+<tr class="bundle-item bundle-parent">
+    <td class="item-info">
+        <img src="<?=$productImage?>" title="<?= $block->escapeHtml($_item->getName()) ?>" alt="<?= $block->escapeHtml($_item->getName()) ?>" style="float:left;margin-right: 5px" />
+        <p class="product-name"><?= $block->escapeHtml($_item->getName()) ?></p>
+        <p class="sku"><?= /* @escapeNotVerified */  __('SKU'); ?>: <?= $block->escapeHtml($_item->getSku()) ?></p>
+    </td>
+    <td class="item-qty">
+        <?= /* @escapeNotVerified */  $_item->getQty() * 1 ?>
+    </td>
+    <td class="item-price">
+        <?= /* @escapeNotVerified */  $this->helper('Magento\Checkout\Helper\Data')->formatPrice($_item->getRowTotal()); ?>
+    </td>
+</tr>
+<?php if ($_options = $block->getOptionList()) :?>
+    <?php foreach ($_options as $_option) : ?>
+        <tr class="bundle-option-label">
+            <?php $_formatedOptionValue = $block->getFormatedOptionValue($_option) ?>
+            <td colspan="3">
+                <strong><em><?= $block->escapeHtml($_option['label']) ?></em></strong>
+            </td>
+        </tr>
+        <tr class="bundle-option-value">
+            <td class="item-info" colspan="3">
+                <?php if (isset($_formatedOptionValue['full_view'])) : ?>
+                    <?= /* @escapeNotVerified */ $_formatedOptionValue['full_view'] ?>
+                <?php else : ?>
+                    <?= /* @escapeNotVerified */ $_formatedOptionValue['value'] ?>
+                <?php endif; ?>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+<?php endif;?>
+
+<?php if ($_showlastRow) : ?>
+    <tr>
+        <td colspan="3" class="item-extra">
+            <?php if ($block->getItemOptions()) : ?>
+                <dl>
+                    <?php foreach ($block->getItemOptions() as $option) : ?>
+                        <dt><strong><em><?= /* @escapeNotVerified */  $option['label'] ?></em></strong></dt>
+                        <dd><?= /* @escapeNotVerified */  $option['value'] ?></dd>
+                    <?php endforeach; ?>
+                </dl>
+            <?php endif; ?>
+            <?php if ($_item->getGiftMessageId() && $_giftMessage = $this->helper('Magento\GiftMessage\Helper\Message')->getGiftMessage($_item->getGiftMessageId())) : ?>
+                <table class="message-gift">
+                    <tr>
+                        <td>
+                            <h3><?= /* @escapeNotVerified */  __('Gift Message') ?></h3>
+                            <strong><?= /* @escapeNotVerified */  __('From:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                            <br /><strong><?= /* @escapeNotVerified */  __('To:'); ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                            <br /><strong><?= /* @escapeNotVerified */  __('Message:'); ?></strong>
+                            <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                        </td>
+                    </tr>
+                </table>
+            <?php endif; ?>
+        </td>
+    </tr>
+<?php endif; ?>

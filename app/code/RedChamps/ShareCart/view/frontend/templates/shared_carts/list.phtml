@@ -1,0 +1,96 @@
+<?php if ($block->getConfigManager()->isAllowed()) :?>
+    <?php $sharedCarts = $block->getSharedCarts();?>
+    <?php $count = count($sharedCarts)?>
+    <?php if ($count) :?>
+        <table class="shared-carts-table clean-table linearize-table">
+            <thead>
+            <tr>
+                <th><?= /* @noEscape */ __("Shared Via")?></th>
+                <th><?= /* @noEscape */ __("Recipient")?></th>
+                <th><?= /* @noEscape */ __("Shared ON")?></th>
+                <th><?= /* @noEscape */ __("Clicks")?></th>
+                <th><?= /* @noEscape */ __("Status")?></th>
+                <th><?= /* @noEscape */ __("Action")?></th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php foreach ($sharedCarts as $sharedCart) :?>
+                <tr>
+                    <td>
+                        <?= /* @noEscape */ $sharedCart->getSharingMethod() ? $sharedCart->getSharingMethod() : "---"?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */ $block->getSharedTo($sharedCart)?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */ $block->getSharedON($sharedCart->getCreatedAt())?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */ $sharedCart->getRestoreCount() ? $sharedCart->getRestoreCount() : 0?>
+                    </td>
+                    <td>
+                        <?= /* @noEscape */ $sharedCart->getStatus() ? $sharedCart->getStatus() : "---"?>
+                    </td>
+                    <td>
+                        <?php if ($sharedCart->getStatus() != "Expired") :?>
+                            <a href="javascript:void(0);" onclick="viewSharedCart('<?=/* @noEscape */ $block->getUrl('share_cart/sharedCarts/viewCart', ['unique_id' => $sharedCart->getUniqueId()])?>')">
+                                <?=/* @noEscape */ __('View') ?>
+                            </a>
+                        <?php else :?>
+                            <?= '---'?>
+                        <?php endif;?>
+                    </td>
+                </tr>
+            <?php endforeach;?>
+            </tbody>
+        </table>
+        <div class="share-cart-container">
+            <div id="shared-carts-warning-box" class="share-cart-popup-overlay">
+                <div class="share-cart-popup share-cart-email-popup" style="width: 80%">
+                    <div class="title">
+                    </div>
+                    <span class="close" onclick="closeSharedCartWarning()">&times;</span>
+                    <div class="content">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            var sharedCartViewBox;
+            var sharedCartViewBoxContent;
+            var shareCartJquery;
+            require([
+                'jquery'
+                ], function ($) {
+                shareCartJquery = $;
+                 sharedCartViewBox = $("#shared-carts-warning-box");
+                 sharedCartViewBoxContent = sharedCartViewBox.find('.content');
+            });
+            function viewSharedCart(url) {
+                sharedCartViewBox.css({'display':'block'});
+                sharedCartViewBoxContent.html("<h2><?=/* @noEscape */ __("Please wait the cart is being loaded .....")?></h2>");
+                shareCartJquery.ajax({
+                    type: "GET",
+                    url: url,
+                    success: function (response) {
+                        sharedCartViewBoxContent.html(response);
+
+                    },
+                    error: function (response) {
+                        sharedCartViewBoxContent.html("<span style='color:red'><?=/* @noEscape */ __("Unable to load cart. Please try again.")?></span>");
+                    }
+                });
+            }
+            function closeSharedCartWarning() {
+                sharedCartViewBox.css({'display':'none'});
+                sharedCartViewBoxContent.html("");
+            }
+        </script>
+    <?php else :?>
+        <p class="wishlist-empty"><?=/* @noEscape */ __('You have not shared any shopping cart yet.') ?></p>
+    <?php endif;?>
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?= $block->escapeUrl($block->getBackUrl()) ?>"><small>&laquo; </small><?=/* @noEscape */ __('Back') ?></a></p>
+    </div>
+<?php endif;?>

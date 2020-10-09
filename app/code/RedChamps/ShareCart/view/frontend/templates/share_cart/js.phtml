@@ -1,0 +1,157 @@
+<script type="text/javascript">
+    //<![CDATA[
+    // Get the modal
+    var shareCartPop = document.getElementById('share-cart-popup');
+
+
+    // Get the <span> element that closes the modal
+    var shareCartPopClose = document.getElementById("share-cart-popup-close");
+
+
+    // When the user clicks on <span> (x), close the modal
+    shareCartPopClose.onclick = function() {
+        shareCartPop.style.display = "none";
+        resetBodyScroll();
+    };
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == shareCartPop) {
+            shareCartPop.style.display = "none";
+            resetBodyScroll();
+
+        }
+    };
+
+    require([
+        'jquery',
+        'mage/mage',
+        'mage/validation'
+    ], function($){
+
+        var shareCartEmailForm = $('#share-cart-email-form');
+
+        shareCartEmailForm.mage('validation', {
+        }).find('input:text').attr('autocomplete', 'off');
+
+        var shareCartLinkForm = $('#share-cart-link-form');
+
+        shareCartLinkForm.mage('validation', {
+        }).find('input:text').attr('autocomplete', 'off');
+
+        $('#share-cart-whatsapp-form').mage('validation', {
+        }).find('input:text').attr('autocomplete', 'off');
+        <?php if ($block->getIsSmsSharingEnabled()) :?>
+        var shareCartSmsForm = $('#share-cart-sms-form');
+
+        shareCartSmsForm.mage('validation', {
+        }).find('input:text').attr('autocomplete', 'off');
+        <?php endif;?>
+
+        $('.top-actions li').click(function () {
+            currentFormId = $(this).attr('id')+"-form";
+            $('.top-actions li').each(function(){
+                formId = $(this).attr('id')+"-form";
+                if(formId != currentFormId) {
+                    $("#"+formId).hide();
+                }
+            });
+            activate(this);
+            $("#"+currentFormId).show();
+        });
+
+        $("#share-cart-email").click();
+
+        //ajax code
+        $(".share-cart-form").submit(function(e) {
+            currentForm = $(this);
+            validationResult = currentForm.validation('isValid');
+            if(validationResult) {
+                //captcha code
+                <?php if ($block->getIsCaptchaEnabled()) :?>
+                grecaptcha.ready(function() {
+                    grecaptcha.execute('<?=/* @noEscape */$block->getHelper()->getCaptchaConfig('site_key')?>', {action: formId.replace(/-/g, "_")}).then(function(token) {
+                        currentForm.find('[name="g-recaptcha-response"]').val(token);
+                        submitForm(currentForm);
+                    });
+                });
+                <?php else :?>
+                submitForm(currentForm);
+                <?php endif;?>
+            }
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+        });
+    });
+
+    function submitForm(currentForm) {
+        actionButton = currentForm.find('button[type="submit"]');
+        actionButtonContainer = currentForm.find('button[type="submit"] span span');
+        origLabel = actionButtonContainer.html();
+        var url = currentForm.attr('action');
+        var resultContainer = currentForm.find(".result");
+        resultContainer.html('');
+        resultContainer.hide();
+        actionButton.prop('disabled', true);
+        actionButtonContainer.html(actionButtonContainer.attr('data-processing-text'));
+        jQuery.ajax({
+            type: "POST",
+            url: url,
+            data: currentForm.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+                var result = jQuery.parseJSON(JSON.stringify(data));
+                resultContainer.removeAttr('style');
+                if(!result.error) {
+                    if(currentForm.attr("id") == "share-cart-link-form") {
+                        resultContainer.html(
+                            '<span>' +
+                            '<input type="text" id="link-to-share" value="'+result.message+'"/>' +
+                            '<button type="button" onclick="copyText(this)"  id="copy-link-to-share"><?=/* @noEscape */ __("Copy")?></button>' +
+                            '</span>'
+                        );
+                    } else if(currentForm.attr("id") == "share-cart-whatsapp-form") {
+                        resultContainer.html('<span class="success"><a id="whatsapp-link" href="'+result.message+'" target="_blank">Click here to Share</a></span>');
+                        //window.open(result.message, '_blank');
+                        //$("#whatsapp-link")[0].click();
+                    } else {
+                        resultContainer.html('<span class="success">'+result.message+'</span>');
+                    }
+                } else {
+                    resultContainer.html('<span class="error">'+result.message+'</span>');
+                }
+                actionButton.prop('disabled', false);
+                actionButtonContainer.html(origLabel);
+            },
+            error: function (error) {
+                resultContainer.removeAttr('style');
+                resultContainer.html('<span class="error"><?=/* @noEscape */ __("Some error occurred. Please retry.")?></span>');
+                actionButton.prop('disabled', false);
+                actionButtonContainer.html(origLabel);
+            }
+        });
+    }
+
+    function copyText(elem) {
+        /* Get the text field */
+        var copyText = document.getElementById("link-to-share");
+
+        /* Select the text field */
+        copyText.select();
+
+        /* Copy the text inside the text field */
+        document.execCommand("Copy");
+
+        origLabel = elem.innerHTML;
+        elem.innerHTML = 'Copied';
+        setTimeout(function(){elem.innerHTML = origLabel; }, 2000);
+    }
+
+    function activate(elem) {
+        jQuery('.share-cart-popup .top-actions li').removeClass('active');
+        jQuery(elem).addClass('active');
+    }
+    function resetBodyScroll() {
+        jQuery('body').removeClass('stop-scroll');
+    }
+    //]]>
+</script>

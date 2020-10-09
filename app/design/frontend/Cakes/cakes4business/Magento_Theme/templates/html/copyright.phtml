@@ -1,0 +1,46 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<script>
+    require(['jquery'], function ($) 
+    {
+       	$(function () 
+		{
+			$('.contentbox1 > dd').hide();
+		    $('#faq_pg .contentbox1 dt').on('click', function (e) {
+		        e.preventDefault();
+		        $(this).parent('dl').children('dd:visible').slideUp('slow');
+		        $(this).nextUntil('dt').filter(':not(:visible)').slideDown('slow');
+		    });		   
+		});
+       (jQuery);
+    });
+</script>
+
+<script type="text/javascript">
+	require(['jquery','fancybox'], function ($) 
+	{
+		jQuery(document).ready(function() 
+			{
+				jQuery("[data-fancybox]").fancybox({
+		        infobar: false,
+		        buttons: false,
+		        afterLoad: function() {
+		            jQuery('.fancybox-content').append('<button data-fancybox-close="" class="fancybox-close-small"></button>');
+		        }
+	    	});
+		});			
+	});
+</script>
+
+<small class="copyright">
+	<div class="container">
+    	<span>
+    		<?= $block->escapeHtml($block->getCopyright()) ?>
+    		&nbsp;&nbsp;&nbsp;&nbsp;<?php echo __('Designed By:'); ?> &nbsp;&nbsp;<a href="https://www.webindiainc.com/" target="_blank">Webindiainc</a>
+    	</span>
+	</div>
+</small>

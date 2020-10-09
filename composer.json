@@ -11,12 +11,18 @@
         "sort-packages": true
     },
     "require": {
+        "amasty/amcart": "^1.9",
+        "amasty/delivery-date": "^1.6",
+        "amasty/feed": "^2.6",
         "magento/product-community-edition": "2.3.5-p2",
         "mageplaza/magento-2-blog-extension": "^3.1",
         "mageplaza/magento-2-product-slider": "^2.0",
+        "mageplaza/magento-2-social-login": "^4.0",
         "mageplaza/module-banner-slider": "^2.0",
-        "mageplaza/module-daily-deal-graphql": "^1.0",
-        "mageplaza/module-delete-orders": "^1.2"
+        "mageplaza/module-delete-orders": "^1.2",
+        "mailchimp/mc-magento2": "^102.3",
+        "swissup/testimonials": "^1.2",
+        "twilio/sdk": "^6.10"
     },
     "require-dev": {
         "allure-framework/allure-phpunit": "~1.2.0",
@@ -70,12 +76,16 @@
     },
     "version": "2.3.5-p2",
     "minimum-stability": "stable",
-    "repositories": [
-        {
+    "repositories": {
+        "0": {
             "type": "composer",
             "url": "https://repo.magento.com/"
+        },
+        "amasty": {
+            "type": "composer",
+            "url": "https://composer.amasty.com/community/"
         }
-    ],
+    },
     "extra": {
         "magento-force": "override"
     }

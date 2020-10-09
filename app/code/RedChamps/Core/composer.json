@@ -1,0 +1,17 @@
+{
+    "name": "redchamps/module-core",
+    "description": "RedChamps Core Module",
+    "type": "magento2-module",
+    "version": "1.0.8",
+    "license": [
+        "RedChamps-Eula"
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "RedChamps\\Core\\": ""
+        }
+    }
+}

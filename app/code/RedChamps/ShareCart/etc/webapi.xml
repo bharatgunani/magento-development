@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Webapi:etc/webapi.xsd">
+    <route url="/V1/share_cart/via/email" method="POST">
+        <service class="RedChamps\ShareCart\Api\EmailApiInterface" method="sendEmail"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/share_cart/via/url" method="POST">
+        <service class="RedChamps\ShareCart\Api\UrlApiInterface" method="getUrl"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/share_cart/via/whatsApp" method="POST">
+        <service class="RedChamps\ShareCart\Api\WhatsAppApiInterface" method="whatsApp"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+    <route url="/V1/share_cart/via/sms" method="POST">
+        <service class="RedChamps\ShareCart\Api\SmsApiInterface" method="sendSms"/>
+        <resources>
+            <resource ref="self"/>
+        </resources>
+    </route>
+</routes>

@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <update id="RedChamps_Menu::redchamps" title="RedChamps" module="RedChamps_ShareCart" sortOrder="79" dependsOnModule="RedChamps_ShareCart" resource="RedChamps_Menu::redchamps"/>
+        <add id="RedChamps_ShareCart::share_cart" title="Share Shopping Cart" module="RedChamps_ShareCart" sortOrder="50" dependsOnModule="RedChamps_ShareCart" parent="RedChamps_Menu::redchamps" resource="RedChamps_ShareCart::share_cart"/>
+        <add id="RedChamps_ShareCart::shared_carts" title="Shared Shopping Carts" module="RedChamps_ShareCart" sortOrder="10" parent="RedChamps_ShareCart::share_cart" action="share_cart/action_sharedCarts/view" resource="RedChamps_ShareCart::shared_carts"/>
+        <add id="RedChamps_ShareCart::conversion_report" title="Conversions Report" module="RedChamps_ShareCart" sortOrder="20" parent="RedChamps_ShareCart::share_cart" action="share_cart/action_report/view" resource="RedChamps_ShareCart::conversion_report"/>
+        <add id="RedChamps_ShareCart::settings" title="Settings" module="RedChamps_ShareCart" sortOrder="30" parent="RedChamps_ShareCart::share_cart" action="adminhtml/system_config/edit/section/share_cart/" resource="RedChamps_ShareCart::settings"/>
+    </menu>
+</config>

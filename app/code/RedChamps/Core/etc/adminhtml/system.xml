@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="redchamps" translate="label" sortOrder="999998" class="redchamps-tab">
+            <label>RedChamps Extensions</label>
+        </tab>
+    </system>
+</config>

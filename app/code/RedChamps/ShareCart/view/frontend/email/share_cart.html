@@ -1,0 +1,47 @@
+<!--@subject {{var sender_name}} shared his cart from {{var store.getFrontendName()}} with you @-->
+
+{{template config_path="design/email/header_template"}}
+
+<style type="text/css">
+    .buy-now:hover{color:red}
+</style>
+<table cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                <td>
+                <p class="email-heading">
+                    {{var sender_name}} shared his shopping cart from {{var store.getFrontendName()}} with you.
+                </p>
+                {{depend message}}
+                <p>
+                    Below is the message from him/her:<br/>
+                    <blockquote>
+                        {{var message}}
+                    </blockquote>
+                </p>
+                {{/depend}}
+                <p>
+                Please feel free to reply to this email to communicate with him/her or use "Buy Now" to purchase the products.
+                </p>
+                </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr class="email-information">
+        <td>
+            {{layout handle="sales_email_quote_items" quote=$quote}}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <a class="buy-now" href="{{var share_url_cart}}" style="display:block;color:white;background: #2679C3;border-radius: 4px;width:19%;padding:5px 16px;margin-top:35px;font-size:18px;text-decoration:none;text-align: center;float: right;">
+                Buy Now
+            </a>
+        </td>
+    </tr>
+</table>
+
+{{template config_path="design/email/footer_template"}}

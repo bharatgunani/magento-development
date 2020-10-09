@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd" label="Email Quote Items List" design_abstraction="custom">
+    <body>
+        <referenceBlock name="sales.email.quote.renderers">
+            <block class="Magento\Checkout\Block\Cart\Item\Renderer" as="default" template="RedChamps_ShareCart::share_cart/email/quote/items/default.phtml"/>
+            <block class="Magento\ConfigurableProduct\Block\Cart\Item\Renderer\Configurable" as="configurable" template="RedChamps_ShareCart::share_cart/email/quote/items/default.phtml"/>
+            <block class="Magento\Downloadable\Block\Checkout\Cart\Item\Renderer" as="downloadable" template="RedChamps_ShareCart::share_cart/email/quote/items/default.phtml"/>
+            <block class="Magento\Bundle\Block\Checkout\Cart\Item\Renderer" as="bundle" template="RedChamps_ShareCart::share_cart/email/quote/items/bundle.phtml"/>
+            <block class="Magento\GroupedProduct\Block\Cart\Item\Renderer\Grouped" as="grouped" template="RedChamps_ShareCart::share_cart/email/quote/items/default.phtml"/>
+        </referenceBlock>
+    </body>
+</page>

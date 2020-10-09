@@ -1,0 +1,44 @@
+<form id="share-cart-email-form" class="share-cart-form" style="display: none" action="<?=/* @noEscape */ $block->getHelper()->prepareUrl('share_cart/action/email') ?>" method="post">
+    <?=/* @noEscape */$block->getBlockHtml('formkey'); ?>
+    <?php if ($block->getIsCaptchaEnabled()) :?>
+        <input type="hidden" name="g-recaptcha-response" value="">
+    <?php endif;?>
+    <fieldset class="fieldset">
+        <div class="field required">
+            <label for="recipient_email"><?=/* @noEscape */__('Recipient Email(s)') ?></label>
+            <div class="control">
+                <textarea class="input-text required-entry" id="recipient_email" name="recipient_email" placeholder="<?=/* @noEscape */__("Enter Each Email Address in Next Line")?>" value="<?=/* @noEscape */$block->escapeHtml($block->getRecipientEmail()) ?>"></textarea>
+            </div>
+        </div>
+        <?php if (!$block->getIsLoggedIn()) :?>
+            <div class="field required">
+                <label for="sender_name"><?=/* @noEscape */__("Your Name") ?></label>
+                <div class="control">
+                    <input class="input-text required-entry"  name="sender_name" placeholder="<?=/* @noEscape */__("Enter Your Name")?>" value="<?=/* @noEscape */$block->escapeHtml($block->getSenderName()) ?>" />
+                </div>
+            </div>
+            <div class="field required">
+                <label for="sender_email"><?=/* @noEscape */__("Your Email") ?></label>
+                <div class="control">
+                    <input class="input-text required-entry validate-email"  name="sender_email" placeholder="<?=/* @noEscape */__("Enter Your Email")?>" value="<?=/* @noEscape */$block->escapeHtml($block->getSenderEmail()) ?>" />
+                </div>
+            </div>
+        <?php endif;?>
+        <div class="field">
+            <label for="message"><?=/* @noEscape */__("Message (optional)") ?></label>
+            <div class="control">
+                <textarea class="input-text" id="message" name="message"><?=/* @noEscape */$block->escapeHtml($block->getMessage()) ?></textarea>
+            </div>
+        </div>
+    </fieldset>
+    <div class="result" style="display:none;"></div>
+    <div class="actions-toolbar">
+        <button type="submit" title="<?=/* @noEscape */__('Share') ?>" class="button2" value="<?=/* @noEscape */__('Share') ?>">
+            <span>
+                <span data-processing-text="<?=/* @noEscape */__('Sending Email. Please wait..') ?>">
+                    <?=/* @noEscape */__('Share') ?>
+                </span>
+            </span>
+        </button>
+    </div>
+</form>

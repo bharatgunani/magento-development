@@ -1,0 +1,25 @@
+<?php $helper = $block->getHelper()?>
+<button id="<?= /* @noEscape */$block->getContainerId()?>" type="button" class="action primary checkout share-cart-btn"  title="Share Shopping Cart">
+    <span><?= /* @noEscape */__('Share Shopping Cart')?></span>
+</button>
+<script>
+    require([
+        'jquery'
+    ], function($){
+
+        $(document).ready(function () {
+            $(".share-cart-btn").on('click', function () {
+                <?php if (!$helper->isCustomerLoggedIn() && $helper->getCaptchaConfig('enabled')) :?>
+                    <?php $captchaJsURL = "https://www.google.com/recaptcha/api.js?render=" . $helper->getCaptchaConfig('site_key')?>
+                if(!$('script[src="<?= /* @noEscape */$captchaJsURL?>"]').length) {
+                    var scriptTag = document.createElement('script');
+                    scriptTag.setAttribute('src',"<?= /* @noEscape */$captchaJsURL?>");
+                    document.head.appendChild(scriptTag);
+                }
+                <?php endif;?>
+                $("#share-cart-popup").show();
+                $('body').addClass('stop-scroll');
+            });
+        });
+    });
+</script>

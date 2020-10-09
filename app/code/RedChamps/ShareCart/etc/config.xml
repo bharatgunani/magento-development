@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
+    <default>
+        <share_cart>
+            <settings>
+                <enabled>1</enabled>
+                <allowed_sharing_options>email,url,whatsapp</allowed_sharing_options>
+                <customer_groups>all</customer_groups>
+                <clear_cart>1</clear_cart>
+                <checkout_redirect>0</checkout_redirect>
+                <checkout_path>checkout</checkout_path>
+                <link_expiry>604800</link_expiry>
+            </settings>
+            <email>
+                <sender>cart_sender</sender>
+                <template>share_cart_email_template</template>
+            </email>
+            <ga>
+                <utm_source>share_cart</utm_source>
+            </ga>
+        </share_cart>
+    </default>
+</config>

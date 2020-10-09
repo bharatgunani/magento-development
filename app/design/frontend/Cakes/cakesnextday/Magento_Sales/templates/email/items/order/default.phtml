@@ -1,0 +1,68 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate
+
+/** @var $block \Magento\Sales\Block\Order\Email\Items\DefaultItems */
+
+/** @var $_item \Magento\Sales\Model\Order\Item */
+$_item = $block->getItem();
+$_order = $_item->getOrder();
+$_store = $_order->getStore();
+
+$_imageHelper = \Magento\Framework\App\ObjectManager::getInstance()->get('Magento\Catalog\Helper\Image');
+$_baseImageUrl = $_store->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA).'catalog/product';
+
+?>
+<tr>
+    <td class="product-img" style="padding-right: 25px;border-top: 1px solid #ccc;padding:10px;">
+        <img src="<?= $_imageHelper->init($_item->getProduct(), 'small_image', ['type'=>'small_image'])->keepAspectRatio(true)->resize('85','110')->getUrl();?>" 
+        alt="<?= __('<?= $block->escapeHtml($_item->getName()) ?>');?>">
+    </td>
+    <td class="item-info<?= ($block->getItemOptions() ? ' has-extra' : '') ?>" style="border-top: 1px solid #ccc;padding:10px;">
+        <p class="product-name" style="font-size: 14px;"><?= $block->escapeHtml($_item->getName()) ?></p>
+        <?php /* <p class="sku"><?= $block->escapeHtml(__('SKU')) ?>: <?= $block->escapeHtml($block->getSku($_item)) ?></p> */ ?>
+        <?php if ($block->getItemOptions()) : ?>
+            <table>
+                <?php foreach ($block->getItemOptions() as $option) : ?>
+                <tr>
+                    <td style="color: #999; font-size: 12px; padding-right: 5px;"><?= $block->escapeHtml($option['label']) ?></td>
+                    <td style="color: #999; font-size: 12px;"><?= /* @noEscape */  nl2br($block->escapeHtml($option['value'])) ?></td>
+                </tr>
+                <?php endforeach; ?>
+            </table>
+        <?php endif; ?>
+        <p style="font-size: 12px; color: #000;"><?= (float) $_item->getQtyOrdered() ?>
+        <?php $addInfoBlock = $block->getProductAdditionalInformationBlock(); ?>
+        <?php if ($addInfoBlock) :?>
+            <?= $addInfoBlock->setItem($_item)->toHtml() ?>
+        <?php endif; ?>
+        <?= $block->escapeHtml($_item->getDescription()) ?>
+    </td>
+    <td class="item-price" style="text-align: right; font-size: 15px; color: #000;border-top: 1px solid #ccc;padding:10px;">
+        <?= /* @noEscape */ $block->getItemPrice($_item) ?>
+    </td>
+</tr>
+<?php if ($_item->getGiftMessageId()
+    && $_giftMessage = $this->helper(\Magento\GiftMessage\Helper\Message::class)
+        ->getGiftMessage($_item->getGiftMessageId())
+) : ?>
+    <tr>
+    <td colspan="3" class="item-extra">
+        <table class="message-gift">
+            <tr>
+                <td>
+                    <h3><?= $block->escapeHtml(__('Gift Message')) ?></h3>
+                    <strong><?= $block->escapeHtml(__('From:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getSender()) ?>
+                    <br /><strong><?= $block->escapeHtml(__('To:')) ?></strong> <?= $block->escapeHtml($_giftMessage->getRecipient()) ?>
+                    <br /><strong><?= $block->escapeHtml(__('Message:')) ?></strong>
+                    <br /><?= $block->escapeHtml($_giftMessage->getMessage()) ?>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+<?php endif; ?>

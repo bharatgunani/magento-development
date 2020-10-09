@@ -1,0 +1,86 @@
+<?php $helper = $block->getConfigManager();?>
+<?php if ($helper->isAllowed()) :?>
+    <?php $allowedSharingOptions = explode(',', $helper->getGeneralConfig('allowed_sharing_options'))?>
+    <?php $smsSharingEnabled = $helper->getTwilioConfig('enabled')?>
+    <?php $loggedIn = $block->isCustomerLoggedIn()?>
+    <?php $isCaptchaEnabled = $helper->getCaptchaConfig('enabled') && !$loggedIn?>
+    <?php $totalEnabledOptions = count($allowedSharingOptions) + $smsSharingEnabled?>
+    <div id="share-cart-popup" class="share-cart-popup-overlay">
+        <div class="share-cart-popup share-cart-email-popup" style="width: <?= $smsSharingEnabled ? '45%' : '30%'?>">
+            <div class="title">
+                <?=/* @noEscape */ __('Choose sharing option')?>
+            </div>
+            <span id="share-cart-popup-close" class="close">&times;</span>
+            <div class="content">
+                <ul class="top-actions total-enabled-<?=/* @noEscape */ $totalEnabledOptions?>">
+                    <?php if (in_array('email', $allowedSharingOptions)) :?>
+                    <li id="share-cart-email">
+                        <span><?=/* @noEscape */ __('Email') ?></span>
+                    </li>
+                    <?php endif;?>
+                    <?php if ($smsSharingEnabled) :?>
+                        <li id="share-cart-sms">
+                            <span><?=/* @noEscape */ __('SMS') ?></span>
+                        </li>
+                    <?php endif;?>
+                    <?php if (in_array('url', $allowedSharingOptions)) :?>
+                    <li id="share-cart-link">
+                        <span><?=/* @noEscape */ __('URL') ?></span>
+                    </li>
+                    <?php endif;?>
+                    <?php if (in_array('whatsapp', $allowedSharingOptions)) :?>
+                    <li id="share-cart-whatsapp">
+                        <span><?=/* @noEscape */ __('WhatsApp') ?></span>
+                    </li>
+                    <?php endif;?>
+                </ul>
+                <?php if (in_array('email', $allowedSharingOptions)) :?>
+                    <?= $this->getChildBlock('share.cart.email.form')->setData(
+                        [
+                            'is_captcha_enabled' => $isCaptchaEnabled,
+                            'helper' => $helper,
+                            'is_logged_in' => $loggedIn
+                        ]
+                    )->toHtml();?>
+                <?php endif;?>
+                <?php if ($smsSharingEnabled) :?>
+                    <?= $this->getChildBlock('share.cart.sms.form')->setData(
+                            [
+                                    'is_captcha_enabled' => $isCaptchaEnabled,
+                                    'helper' => $helper,
+                                    'is_logged_in' => $loggedIn
+                            ]
+                    )->toHtml();?>
+                <?php endif;?>
+                <?php if (in_array('url', $allowedSharingOptions)) :?>
+                    <?= $this->getChildBlock('share.cart.url.form')->setData(
+                        [
+                            'is_captcha_enabled' => $isCaptchaEnabled,
+                            'helper' => $helper,
+                            'is_logged_in' => $loggedIn
+                        ]
+                    )->toHtml();?>
+                <?php endif;?>
+                <?php if (in_array('whatsapp', $allowedSharingOptions)) :?>
+                    <?= $this->getChildBlock('share.cart.whatsapp.form')->setData(
+                        [
+                            'is_captcha_enabled' => $isCaptchaEnabled,
+                            'helper' => $helper,
+                            'is_logged_in' => $loggedIn
+                        ]
+                    )->toHtml();?>
+                <?php endif;?>
+            </div>
+        </div>
+        <?= $this->getChildBlock('share.cart.js')->setData(
+            [
+                'is_captcha_enabled' => $isCaptchaEnabled,
+                'helper' => $helper,
+                'is_sms_sharing_enabled' => $smsSharingEnabled
+            ]
+        )->toHtml();?>
+        <style>
+            <?=/* @noEscape */$helper->getDesignConfig('custom_css')?>
+        </style>
+    </div>
+<?php endif;?>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <preference for="RedChamps\ShareCart\Api\EmailApiInterface"
+                type="RedChamps\ShareCart\Model\Share\Actions\Email" />
+    <preference for="RedChamps\ShareCart\Api\SmsApiInterface"
+                type="RedChamps\ShareCart\Model\Share\Actions\Sms" />
+    <preference for="RedChamps\ShareCart\Api\WhatsAppApiInterface"
+                type="RedChamps\ShareCart\Model\Share\Actions\WhatsApp" />
+    <preference for="RedChamps\ShareCart\Api\UrlApiInterface"
+                type="RedChamps\ShareCart\Model\Share\Actions\Url" />
+    <type name="Magento\Sales\Cron\CleanExpiredQuotes">
+        <plugin name="share-cart-clean-expired-quotes"
+                type="RedChamps\ShareCart\Plugin\CleanExpiredQuotes" sortOrder="1" disabled="false" />
+    </type>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="shared_carts_listing_data_source" xsi:type="string">sharedCartSearchResult</item>
+                <item name="conversion_report_listing_source" xsi:type="string">RedChamps\ShareCart\Model\ConversionReport\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="sharedCartSearchResult" type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">redchamps_share_cart</argument>
+            <argument name="resourceModel" xsi:type="string">RedChamps\ShareCart\Model\ResourceModel\ShareCart</argument>
+            <argument name="eventPrefix" xsi:type="string">redchamps_shared_carts_grid_collection</argument>
+            <argument name="eventObject" xsi:type="string">redchamps_shared_carts_collection</argument>
+        </arguments>
+    </virtualType>
+</config>

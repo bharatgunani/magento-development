@@ -1,0 +1,207 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <tab id="redchamps" translate="label" sortOrder="999998">
+            <label>RedChamps</label>
+        </tab>
+        <section id="share_cart" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+            <label>Share Shopping Cart</label>
+            <tab>redchamps</tab>
+            <resource>RedChamps_ShareCart::share_cart_config</resource>
+            <group id="branding" translate="label" type="text" sortOrder="0" showInDefault="1" showInWebsite="1"
+                   showInStore="1">
+                <label>RedChamps_ShareCart</label>
+                <frontend_model>RedChamps\Core\Block\Adminhtml\System\Config\Form\Heading</frontend_model>
+            </group>
+            <group id="settings" type="text" sortOrder="0" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>General</label>
+                <field id="enabled" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="allowed_sharing_options" type="multiselect" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allowed Sharing Options</label>
+                    <source_model>RedChamps\ShareCart\Model\System\Config\Source\SharingOptions</source_model>
+                    <comment>
+                        Select sharing options you would like to be available in the frontend.
+                        SMS sharing option is seperately controlled from section "Twilio Configurations(SMS Sharing)".
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="customer_groups" type="multiselect" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Allowed for Customer Groups</label>
+                    <source_model>RedChamps\ShareCart\Model\System\Config\Source\Customer\Group</source_model>
+                    <comment>
+                        Select customer groups to which you want to allow cart sharing functionality.
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="clear_cart" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Clear Cart Before Restore</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Empty customer's shopping cart before restoring shared cart so that customer have only shared products to checkout.
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="checkout_redirect" type="select" sortOrder="22" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Redirect to Checkout After Cart Restore</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                    <comment>
+                        Choose Yes if you would like customer to be redirected to checkout page instead of cart once he clicks Shared Cart link
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="checkout_path" type="text" sortOrder="25" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Checkout Path</label>
+                    <comment>
+                        <![CDATA[If you are using third party extension for checkout page and it has custom URL the enter URI of the custom URL. For example, if it is http://example.com/onestepcheckout then enter <b>onestepcheckout</b>]]>
+                    </comment>
+                    <depends>
+                        <field id="checkout_redirect">1</field>
+                    </depends>
+                </field>
+                <field id="link_expiry" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Link Expiry</label>
+                    <comment>
+                        Enter time (in seconds) after which shared cart link should expired. Please enter at least 60 (one minute) and at most 31536000 (one year).
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="email" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Share Cart Email</label>
+                <field id="sender" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Sender</label>
+                    <source_model>RedChamps\ShareCart\Model\System\Config\Source\EmailSender</source_model>
+                    <comment>
+                        Choose the sender email address while user share his cart via email.
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="template" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Email Template</label>
+                    <source_model>Magento\Config\Model\Config\Source\Email\Template</source_model>
+                    <comment>
+                        Select email template which needs to be used while user share his cart via email.
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="copy_to" translate="label comment" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Send Share Cart Email Copy To</label>
+                    <comment>Comma-separated. Email copy will be sent using 'bcc' method.</comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="captcha" type="text" sortOrder="6" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Google reCaptcha</label>
+                <field id="enabled" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" canRestore="1">
+                    <label>Enable</label>
+                    <comment>Use Google reCaptcha to avoid bot and spams. Intelligent enough to work only for the non-logged in users.</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="site_key" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Site Key</label>
+                    <comment>
+                        <![CDATA[Please click here <a href="https://www.google.com/recaptcha/admin" target="_blank">reCaptcha Admin</a> to generate Site Key or read details from here <a target="_blank" href="https://developers.google.com/recaptcha/intro#overview">developers.google.com</a>]]>
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="secret_key" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Secret Key</label>
+                    <comment>
+                        <![CDATA[Please click here <a href="https://www.google.com/recaptcha/admin" target="_blank">reCaptcha Admin</a> to generate Secret Key or read details from here <a target="_blank" href="https://developers.google.com/recaptcha/intro#overview">developers.google.com</a>]]>
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="twilio" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Twilio Settings(SMS sharing)</label>
+                <field id="enabled" type="select" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Enabled</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+                <field id="account_sid" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Account Sid</label>
+                    <comment>
+                        It can be found in you account at https://www.twilio.com/console
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="account_auth_token" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Auth Token</label>
+                    <comment>
+                        It can be found in you account at https://www.twilio.com/console
+                    </comment>
+                    <validate>required-entry</validate>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+                <field id="twilio_phone" type="text" sortOrder="4" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Twilio Phone Number</label>
+                    <comment>
+                        It can be found in you account at https://www.twilio.com/console
+                    </comment>
+                    <depends>
+                        <field id="enabled">1</field>
+                    </depends>
+                </field>
+            </group>
+            <group id="design" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1" translate="label">
+                <label>Design</label>
+                <field id="custom_css" type="textarea" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <label>Custom CSS</label>
+                </field>
+            </group>
+            <group id="ga" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0" translate="label">
+                <label>Google Analytics</label>
+                <field id="utm_source" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>utm_source</label>
+                    <comment>it identifies source of the url</comment>
+                </field>
+                <field id="utm_medium" type="text" sortOrder="2" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>utm_medium</label>
+                    <comment>
+                        <![CDATA[
+                        Leave it empty if you want to add dynamic value to it as per sharing method of the cart.
+                        i.e if its value is empty in this setting and customer shares cart via email then value 'email' will be used for
+                        'utm_medium' param and if he shares via direct url method then 'url' will be used & so on
+                        ]]>
+                    </comment>
+                </field>
+                <field id="utm_campaign" type="text" sortOrder="3" showInDefault="1" showInWebsite="1" showInStore="0" canRestore="1">
+                    <label>utm_campaign</label>
+                    <comment>it identifies the name of your campaign</comment>
+                </field>
+            </group>
+        </section>
+    </system>
+</config>

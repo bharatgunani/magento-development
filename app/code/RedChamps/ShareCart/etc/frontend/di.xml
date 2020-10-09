@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="RedChamps\ShareCart\Block\MiniCart\Button">
+        <arguments>
+            <argument name="data" xsi:type="array">
+                <item name="template" xsi:type="string">RedChamps_ShareCart::share_cart/mini_cart/button.phtml</item>
+                <item name="alias" xsi:type="string">share_cart.button.mini-cart</item>
+                <item name="button_id" xsi:type="string">share-cart-btn-mini-cart</item>
+            </argument>
+        </arguments>
+    </type>
+    <type name="RedChamps\ShareCart\Controller\Action\Email">
+        <arguments>
+            <argument name="shareCartApiInterface"  xsi:type="object">RedChamps\ShareCart\Api\EmailApiInterface</argument>
+        </arguments>
+    </type>
+    <type name="RedChamps\ShareCart\Controller\Action\Link">
+        <arguments>
+            <argument name="shareCartApiInterface" xsi:type="object">RedChamps\ShareCart\Api\UrlApiInterface</argument>
+        </arguments>
+    </type>
+    <type name="RedChamps\ShareCart\Controller\Action\Sms">
+        <arguments>
+            <argument name="shareCartApiInterface" xsi:type="object">RedChamps\ShareCart\Api\SmsApiInterface</argument>
+        </arguments>
+    </type>
+    <type name="RedChamps\ShareCart\Controller\Action\WhatsApp">
+        <arguments>
+            <argument name="shareCartApiInterface" xsi:type="object">RedChamps\ShareCart\Api\WhatsAppApiInterface</argument>
+        </arguments>
+    </type>
+    <type name="RedChamps\ShareCart\Controller\Action\Restore">
+        <arguments>
+            <argument name="shareCartApiInterface" xsi:type="object">RedChamps\ShareCart\Model\Share\Actions\Restore</argument>
+        </arguments>
+    </type>
+</config>

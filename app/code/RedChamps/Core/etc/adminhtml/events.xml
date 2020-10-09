@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="backend_auth_user_login_success">
+        <observer name="redchamps_core_admin_login" instance="RedChamps\Core\Observer\Event1" />
+    </event>
+    <event name="controller_action_predispatch">
+        <observer name="redchamps_core_pre_dispatch" instance="RedChamps\Core\Observer\Event2" />
+    </event>
+</config>

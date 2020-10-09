@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/page_configuration.xsd">
+    <referenceBlock name="customer_account_navigation">
+        <block class="Magento\Framework\View\Element\Html\Link\Current" name="customer-account-navigation-shared-carts-link" after="customer-account-navigation-wish-list-link">
+            <arguments>
+                <argument name="path" xsi:type="string">share_cart/sharedCarts/listCarts</argument>
+                <argument name="label" xsi:type="helper" helper="RedChamps\ShareCart\Helper\Data::getCustomerMenuName"/>
+                <argument name="sortOrder" xsi:type="number">201</argument>
+            </arguments>
+        </block>
+    </referenceBlock>
+</page>

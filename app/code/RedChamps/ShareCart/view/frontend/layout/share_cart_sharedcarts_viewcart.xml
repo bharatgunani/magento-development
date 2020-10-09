@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<layout xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:View/Layout/etc/layout_generic.xsd">
+    <update handle="checkout_cart_item_renderers"/>
+    <update handle="checkout_cart_index"/>
+    <container name="root" label="Root" output="1">
+            <block class="RedChamps\ShareCart\Block\SharedCart" name="shared.cart" template="Magento_Checkout::cart.phtml" cacheable="false">
+                <arguments>
+                    <argument name="sharedCartVieModel" xsi:type="object">RedChamps\ShareCart\ViewModel\SharedCart</argument>
+                </arguments>
+                <container name="checkout.cart.items" as="with-items">
+                    <container name="checkout.cart.container" htmlTag="div" htmlClass="cart-container" before="-">
+                        <container name="cart.summary" label="Cart Summary Container" htmlTag="div" htmlClass="cart-summary" after="-">
+                            <block class="Magento\Checkout\Block\Cart\Shipping" name="checkout.cart.shipping" as="shipping" template="RedChamps_ShareCart::shared_carts/view/shipping.phtml" after="checkout.cart.summary.title">
+                                <arguments>
+                                    <argument name="sharedCartVieModel" xsi:type="object">RedChamps\ShareCart\ViewModel\SharedCart</argument>
+                                </arguments>
+                            </block>
+                            <block class="RedChamps\ShareCart\Block\SharedCarts\View\Button\RestoreCart" name="restore.shared.cart" template="RedChamps_ShareCart::shared_carts/view/button/restore.phtml"/>
+                        </container>
+                        <block class="RedChamps\ShareCart\Block\SharedCarts\Grid" name="checkout.cart.form" as="cart-items" template="Magento_Checkout::cart/form.phtml" after="cart.summary">
+                            <block class="Magento\Framework\View\Element\RendererList" name="checkout.cart.item.renderers" as="renderer.list"/>
+                            <arguments>
+                                <argument name="sharedCartVieModel" xsi:type="object">RedChamps\ShareCart\ViewModel\SharedCart</argument>
+                            </arguments>
+                        </block>
+                        <container name="checkout.cart.widget" as="checkout_cart_widget" label="Shopping Cart Items After"/>
+                    </container>
+                </container>
+                <container name="checkout.cart.noitems" as="no-items">
+                    <block class="Magento\Checkout\Block\Cart" name="checkout.cart.empty" before="-" template="Magento_Checkout::cart/noItems.phtml">
+                        <container name="checkout.cart.empty.widget" as="checkout_cart_empty_widget" label="Empty Shopping Cart Content Before"/>
+                    </block>
+                </container>
+            </block>
+    </container>
+    <referenceBlock name="checkout.cart.item.renderers.default.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.item.renderers.simple.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.item.renderers.bundle.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.item.renderers.configurable.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.item.renderers.grouped.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.item.renderers.gift-card.actions.gift_options" remove="true"/>
+    <referenceBlock name="checkout.cart.crosssell" remove="true"/>
+</layout>
