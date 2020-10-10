@@ -36,9 +36,9 @@
 }
 .opc-progress-bar-item._active:before {
     background: none;
-    border-color: #3e4850;
+    border-color: gray;
 }
-.opc-progress-bar-item._complete:before{border-color: #ff5501;background:none;}
+.opc-progress-bar-item._complete:before{border-color: #292826;background:none;}
 .opc-progress-bar-item>span {
     display: inline-block;
     padding-top: 35px;
@@ -95,19 +95,19 @@
     background: #fff;
 }
 .opc-progress-bar-item._active>span:before {
-    background: #3e4850;
-    border-color: #3e4850;
+    background: gray;
+    border-color: gray;
 }
 .opc-progress-bar-item._active>span {
-    color: #3e4850;
+    color: gray;
     font-weight: 400;
 }
 .opc-progress-bar-item._complete > span:before {
-    background: #ff5501;
-    border: 1px solid #ff5501;
+    background: #292826;
+    border: 1px solid #292826;
 }
 .opc-progress-bar-item._complete > span {
-    color: #ff5501;
+    color: #292826;
 }
 .opc-progress-bar > li:nth-child(2) span {
     margin-left: -65px;
@@ -116,7 +116,8 @@
     background: #ff5501;
 }
 .opc-progress-bar-item._complete:hover > span:before {
-    background: #ff5501;
+    background: gray;
+    border-color:gray;
 }
 .opc-wrapper .field[name="shippingAddress.firstname"], .opc-wrapper .field[name="shippingAddress.lastname"], .opc-wrapper .field[name="shippingAddress.region"], .opc-wrapper .field[name="shippingAddress.street.0"], .opc-wrapper .field[name="shippingAddress.street.1"], .opc-wrapper .field[name="shippingAddress.city"], .opc-wrapper .field[name="shippingAddress.postcode"], .opc-wrapper .field[name="shippingAddress.country_id"]{
     width: 49%;
@@ -180,14 +181,14 @@
     margin: 0;
 }
 #checkout button.action.action-auth-toggle {
-    background: #3e4850;
+    background: #292826;
     color: #fff;
     padding: 5px 10px;
-    border:1px solid #3e4850;
+    border:1px solid #292826;
 }
 #checkout button.action.action-auth-toggle:hover {
     background: transparent;
-    color: #3e4850;
+    color: #292826;
     text-decoration: none;
 }
 .checkout-payment-method .payment-option-content .form-discount {
@@ -203,8 +204,8 @@
     width: auto;
 }
 .opc-wrapper .form-discount#discount-form button.action.action-apply{
-    background: #3e4850;
-    border: 1px solid #3e4850;
+    background: #292826;
+    border: 1px solid #292826;
     color: #fff;
     padding: 0 10px;
     height: 40px;
@@ -212,7 +213,7 @@
     border-radius: 3px;
     font-weight: normal;
 }
-.opc-wrapper .form-discount#discount-form button.action.action-apply:hover{background:transparent;color:#3e4850;}
+.opc-wrapper .form-discount#discount-form button.action.action-apply:hover{background:transparent;color:#292826;}
 #checkout .actions-toolbar .action.primary{
     margin: 0;
     font-size: 15px;
