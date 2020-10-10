@@ -159,8 +159,7 @@ h1.page-title {
     transition: all 0.5s ease;
 }
 .header-right .customer-links li.nav-item.login ul.header.links li a:hover {
-    background: #292826;
-    color: #fff;
+    background: #ddd;
 }
 .header-right .customer-links li .customer-wishlist a
 {	background: url(../images/heart1.png) no-repeat center center; width: 40px; height: 40px; background-size: 30px auto; position: relative;	
@@ -1234,7 +1233,8 @@ p.video-section-first-content span{color:#292826;font-weight: bold;}
 .opc-wrapper .step-title, .opc-block-shipping-information .shipping-information-title, .opc-block-summary > .title, .checkout-agreements-items .checkout-agreements-item-title{
     color:#292826;
 }
-.block-collapsible-nav .item.current a, .block-collapsible-nav .item.current > strong{ border-color:#bbbcb7; }
+.block-collapsible-nav .item.current a, .block-collapsible-nav .item.current > strong{ border-color:#292826; }
+.block-collapsible-nav .item.current a, .block-collapsible-nav .item.current > strong{color:#292826;} 
 .action.primary{ background: #292826; border: 1px solid #292826; font-size: 15px;font-weight: normal;color:#fff; }
 .action.primary:hover, .action.primary:focus{ background: #fff; color:#292826;border:1px solid #292826; }
 .wishlist-index-index .products-grid .product-item{ width: 31%; margin: 1%; }
